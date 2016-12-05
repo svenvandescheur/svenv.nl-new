@@ -1,0 +1,63 @@
+{% load cms_tags thumbnail %}
+
+
+{% for child in children %}
+    <section class="view-category__article">
+            <header class="view-category__header">
+                <a href="{{ child.get_absolute_url }}">
+                    <img alt="{{ child.get_title }}"
+                         class="view-category__header-image"
+                         src="{% thumbnail child.articleextension.image 768x288 crop upscale subject_location=child.articleextension.image.subject_location %}" />
+
+                </a>
+            </header>
+
+        <article class="view-category__content">
+            <h3 class="view-category__title">
+                <a href="{{ child.get_absolute_url }}">{{ child.get_title }}</a>
+            </h3>
+
+            <section class="view-category__body">
+                {{ child.computed_body|safe }}
+            </section>
+
+            <footer class="view-category__footer">
+                <em class="view-category__publication-date">Published on {{ child.publication_date|date }}.</em>
+                <a class="view-category__link"href="{{ child.get_absolute_url }}">Read more</a>
+            </footer>
+        </article>
+    </section>
+{% endfor %}
+
+
+{% if children.has_other_pages %}
+    <nav class="view-category__pagination">
+        <ul class="view-category__pagination__list">
+            {% if children.has_previous %}
+                <li class="view-category__pagination__list-item">
+                    <a class="view-category__pagination__link view-category__pagination__link--previous" href="?page={{ children.previous_page_number }}">&lt;</a>
+                </li>
+            {% endif %}
+
+
+            {% for i in children.paginator.page_range %}
+                {% if children.number == i %}
+                    <li class="view-category__pagination__list-item">
+                        <a class="view-category__pagination__link view-category__pagination__link--active" href="?page={{ i }}">{{ i }}</a>
+                    </li>
+                {% else %}
+                    <li class="view-category__pagination__list-item">
+                        <a class="view-category__pagination__link" href="?page={{ i }}">{{ i }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+
+            {% if children.has_next %}
+                <li class="view-category__pagination__list-item">
+                    <a class="view-category__pagination__link view-category__pagination__link--next" href="?page={{ children.next_page_number }}">&gt;</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endif %}

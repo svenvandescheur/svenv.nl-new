@@ -1,0 +1,19 @@
+{% load menu_tags %}
+
+
+<header class="navbar">
+    <h1 class="navbar__heading">
+        <a class="navbar__link" href="/">{{ request.site.name }}</a>
+    </h1>
+
+    <nav class="navbar__nav">
+        <ul class="navbar__list">
+            {% show_menu 0 100 100 100 "menu.html" %}
+        </ul>
+    </nav>
+
+    <form class="navbar__form">
+        <label class="navbar__label" for="search">Search</label>
+        <input class="navbar__input" id="search" type="search" autocomplete="off" />
+    </form>
+</header>

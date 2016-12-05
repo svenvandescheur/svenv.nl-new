@@ -1,0 +1,13 @@
+{% load menu_tags %}
+
+
+{% for child in children %}
+<li class="navbar__list-item{% if child.level == 0 and child.children %} navbar__list-item--parent{% endif %}{% if child.selected %} navbar__list-item--selected{% endif %}">
+	<a href="{% if child.level == 0 and child.children %}#{% else %}{{ child.attr.redirect_url|default:child.get_absolute_url }}{% endif %}" class="navbar__link">{{ child.get_menu_title }}</a>
+	{% if child.children %}
+	<ul class="navbar__submenu">
+		{% show_menu from_level to_level extra_inactive extra_active template "" "" child %}
+	</ul>
+	{% endif %}
+</li>
+{% endfor %}

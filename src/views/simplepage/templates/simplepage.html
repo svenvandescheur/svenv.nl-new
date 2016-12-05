@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load cms_tags thumbnail %}
+
+
+{% block title %}{% page_attribute "page_title" %}{% endblock title %}
+{% block bodyclass %}view-simplepage{% endblock bodyclass %}
+
+
+{% block content %}
+<main class="view-simplepage__main">
+    {% if request.current_page.simplepageextension %}
+        <header class="view-simplepage__header">
+            <h1 class="view-simplepage__heading">
+                <a class="view-simplepage__link" href="/">{{ request.site.name }}</a>
+            </h1>
+
+            <a class="view-simplepage__back button button--prev"  href="/">Home</a>
+
+            <img alt="{% page_attribute 'page_title' %}"
+                 class="view-simplepage__header-image"
+                 src="{% thumbnail request.current_page.simplepageextension.image 1680x576 crop upscale subject_location=request.current_page.simplepageextension.image.subject_location %}" />
+        </header>
+    {% endif %}
+
+
+    <article class="view-simplepage__content">
+        <h2 class="view-simplepage__title">{% page_attribute "page_title" %}</h2>
+	    {% placeholder "content" %}
+
+
+        <footer class="view-simplepage__footer">
+            {% if request.current_page.simplepageextension.image.description %}
+                <em class="view-simplepage__image-notice">Image: {{ request.current_page.simplepageextension.image.description }}</em>
+            {% endif %}
+        </footer>
+    </article>
+</main>
+{% endblock content %}

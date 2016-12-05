@@ -1,0 +1,85 @@
+// FIXME Global styling without BEM because we depend on a plugin.
+// TODO: Investigate ways to apply BEM.
+@import '../lib/color';
+@import '../lib/grid';
+@import '../lib/responsive';
+@import '../lib/typography';
+@import 'button';
+
+
+$contact-form-breakpoint-spacing: $breakpoint-tablet;
+$contact-form-color-border: $color-border;
+$contact-form-color-button: $color-action-primary;
+$contact-form-color-error: $color-error;
+
+
+.view-simplepage form {
+  @include text-normal();
+  box-sizing: border-box;
+  float: left;
+  width: 100%;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  label {
+    @include rows(1, line-height);
+    display: inline-block;
+    float: left;
+    width: 100%;
+
+    @media (min-width: $contact-form-breakpoint-spacing) {
+      width: 150px;
+    }
+  }
+
+  input,
+  textarea {
+    @include rows(1, line-height);
+    @include vmargin(0, 1);
+    -webkit-appearance: none;
+    border: none;
+    border-bottom: 1px solid $contact-form-color-border;
+    float: left;
+    font-size: 1.25rem;
+    outline: none;
+    width: 100%;
+
+    @media (min-width: $contact-form-breakpoint-spacing) {
+      width: calc(100% - 150px);
+    }
+  }
+
+  textarea {
+    @include rows(4);
+    line-height: 1.5;
+  }
+
+  input[type=submit] {
+    @extend .button;
+    margin-left: 0;
+    width: 100%;
+
+    @media (min-width: $contact-form-breakpoint-spacing) {
+      margin-left: 150px;
+      width: calc(100% - 300px);
+    }
+  }
+
+  .errorlist {
+    list-style-type: none!important;
+    margin: 0!important;
+  }
+
+  .errorlist li {
+    @include rows(1, line-height);
+    @include vmargin(0, 0.5);
+    background: lighten($contact-form-color-error, 50%);
+    border: 1px solid $contact-form-color-error;
+    color: $contact-form-color-error;
+    float: left;
+    padding: 0 10px;
+    width: 100%;
+  }
+}

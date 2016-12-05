@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load cms_tags thumbnail %}
+
+
+{% block title %}{% page_attribute "page_title" %}{% endblock title %}
+{% block bodyclass %}view-article{% endblock bodyclass %}
+
+
+{% block content %}
+<main class="view-article__main">
+    {% if request.current_page.articleextension %}
+        <header class="view-article__header">
+            <h1 class="view-article__heading">
+                <a class="view-article__link" href="/">{{ request.site.name }}</a>
+            </h1>
+
+            <a class="view-article__back button button--prev"  href="/">Home</a>
+
+            <img alt="{% page_attribute 'page_title' %}"
+                 class="view-article__header-image"
+                 src="{% thumbnail request.current_page.articleextension.image 1680x576 crop upscale subject_location=request.current_page.articleextension.image.subject_location %}" />
+        </header>
+    {% endif %}
+
+
+    <article class="view-article__content">
+        <h2 class="view-article__title">{% page_attribute "page_title" %}</h2>
+	    {% placeholder "content" %}
+
+
+        <footer class="view-article__footer">
+            <em class="view-article__publication-date">Published on {{ request.current_page.publication_date|date }}.</em>
+
+            {% if request.current_page.articleextension.image.description %}
+                <em class="view-article__image-notice">Image: {{ request.current_page.articleextension.image.description }}</em>
+            {% endif %}
+        </footer>
+
+
+        <ul class="view-article__related">
+            <li class="view-article__related-item">
+                {% if request.current_page.get_previous_filtered_sibling %}
+                    <a class="view-article__link"
+                       href="{{ request.current_page.get_previous_filtered_sibling.get_absolute_url }}">
+
+                        <img alt="{{ request.current_page.get_previous_filtered_sibling.get_title }}"
+                             class="view-article__related-image"
+                             src="{{ request.current_page.get_previous_filtered_sibling.articleextension.image.url }}" />
+
+                        {{ request.current_page.get_previous_filtered_sibling.get_title }}
+                    </a>
+                {% endif %}
+            </li>
+
+            <li class="view-article__related-item">
+                {% if request.current_page.get_next_filtered_sibling %}
+                    <a class="view-article__link"
+                       href="{{ request.current_page.get_next_filtered_sibling.get_absolute_url }}">
+
+                        <img alt="{{ request.current_page.get_next_filtered_sibling.get_title }}"
+                             class="view-article__related-image"
+                             src="{{ request.current_page.get_next_filtered_sibling.articleextension.image.url }}" />
+
+                        {{ request.current_page.get_next_filtered_sibling.get_title }}
+                    </a>
+                {% endif %}
+            </li>
+        </ul>
+
+
+        {% if request.current_page.articleextension.comments %}
+            <section class="disqus" id="disqus_thread"></section>
+        {% endif %}
+    </article>
+</main>
+{% endblock content %}

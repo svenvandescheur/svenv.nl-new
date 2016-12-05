@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load category_tags cms_tags thumbnail %}
+
+
+{% block title %}{% page_attribute "page_title" %}{% endblock title %}
+{% block bodyclass %}view-category{% endblock bodyclass %}
+
+
+{% block content %}
+{% with root=request.current_page %}
+<main class="view-category__main">
+    {% children root %}
+</main>
+{% endwith %}
+{% endblock content %}

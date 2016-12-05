@@ -1,0 +1,8 @@
+@import '../lib/responsive';
+
+
+.code-snippet {
+  .code-snippet__code {
+    @include hpadding(1, 1);
+  }
+}

@@ -1,0 +1,25 @@
+@import '../lib/responsive';
+
+
+.codepen-embed {
+  @include hpadding(1, 1);
+  background: #1d1f20;
+  box-sizing: border-box;
+  display: block;
+  position: relative;
+
+  &:before {
+    content: "";
+    background: #3d3d3e;
+    display: block;
+    height: 50px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .cp_embed_wrapper {
+    position: relative;
+  }
+}

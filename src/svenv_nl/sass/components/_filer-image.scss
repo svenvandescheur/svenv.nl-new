@@ -1,0 +1,31 @@
+@import '../lib/typography';
+
+
+// Default filer plugin, no BEM
+.filer_image {
+  display: block;
+  max-width: 100%;
+
+  &.center {
+    margin-left: auto;
+    margin-right: auto;
+
+    + .filer_image_info {
+      text-align: center;
+    }
+  }
+
+  &.right {
+    margin-left: auto;
+    margin-right: 0;
+
+    + .filer_image_info {
+      text-align: right;
+    }
+  }
+
+  + .filer_image_info {
+    @include text-normal();
+    display: block;
+  }
+}

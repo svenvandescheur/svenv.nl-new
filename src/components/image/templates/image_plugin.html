@@ -1,0 +1,6 @@
+{% load menu_tags %}
+
+
+<img alt="{{ instance.alt_text }}"
+     class="image{% if instance.class_name%} {{ instance.class_name }}{% endif %}"
+     src="{{ instance.image.url }}" />
