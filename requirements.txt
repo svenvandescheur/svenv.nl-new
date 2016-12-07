@@ -1,5 +1,8 @@
 django-cms==3.4.1
+django-extensions
+djangorestframework
 cmsplugin_contact_plus
 cmsplugin-filer>=1.1
 djangocms-snippet>=1.9
 djangocms-text-ckeditor>=3.2.1
+

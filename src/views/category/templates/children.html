@@ -4,26 +4,25 @@
 {% for child in children %}
     <section class="view-category__article">
             <header class="view-category__header">
-                <a href="{{ child.get_absolute_url }}">
-                    <img alt="{{ child.get_title }}"
+                <a href="{{ child.absolute_url }}">
+                    <img alt="{{ child.title }}"
                          class="view-category__header-image"
-                         src="{% thumbnail child.articleextension.image 768x288 crop upscale subject_location=child.articleextension.image.subject_location %}" />
-
+                         src="{{ child.image }}" />
                 </a>
             </header>
 
         <article class="view-category__content">
             <h3 class="view-category__title">
-                <a href="{{ child.get_absolute_url }}">{{ child.get_title }}</a>
+                <a href="{{ child.absolute_url }}">{{ child.title }}</a>
             </h3>
 
             <section class="view-category__body">
-                {{ child.computed_body|safe }}
+                {{ child.body|safe }}
             </section>
 
             <footer class="view-category__footer">
                 <em class="view-category__publication-date">Published on {{ child.publication_date|date }}.</em>
-                <a class="view-category__link"href="{{ child.get_absolute_url }}">Read more</a>
+                <a class="view-category__link"href="{{ child.absolute_url }}">Read more</a>
             </footer>
         </article>
     </section>

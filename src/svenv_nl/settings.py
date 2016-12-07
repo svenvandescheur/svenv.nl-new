@@ -152,6 +152,8 @@ INSTALLED_APPS = (
     # 'djangocms_video',
 
     'cmsplugin_contact_plus',
+    'django_extensions',
+    'rest_framework',
 
     'svenv_nl',
     'components.codepenembed',
@@ -225,3 +227,12 @@ THUMBNAIL_PROCESSORS = (
 
 
 EMAIL_HOST = 'localhost'
+
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}

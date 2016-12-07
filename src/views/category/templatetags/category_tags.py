@@ -1,5 +1,7 @@
 from django import template
 from django.core.paginator import Paginator
+from easy_thumbnails.files import get_thumbnailer
+
 
 register = template.Library()
 
@@ -15,13 +17,15 @@ def children(context, root):
     children = p.page(page)
 
     for child in children:
-        child.computed_body = ''
+        options = { 'size': (768, 288), 'crop': True, 'upscale': True, 'subject_location': child.articleextension.image.subject_location }
+        child.title = child.get_title()
+        child.absolute_url = child.get_absolute_url()
+        child.image = get_thumbnailer(child.articleextension.image).get_thumbnail(options).url
+        child.body = ''
 
         for placeholder in child.get_placeholders():
             for plugin in placeholder.get_plugins():
-                child.computed_body += plugin.render_plugin(context)
-
-
+                child.body += plugin.render_plugin(context)
 
     return {
         'children': children,
